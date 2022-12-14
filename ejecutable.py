@@ -195,7 +195,7 @@ with col2:
 
         # Every form must have a submit button.
         submitted = st.form_submit_button("Enviar")
-        if checkbox_val and uploaded_file and submitted:
+        if submitted:
             #dataexport = pd.DataFrame([{'client_name':name, 'client_id_type':tipoid,'client_id_number':idnumber,'client_phone':phonenumber,'client_firm_name':firmname, 'city_reference_address':city_address, 'reference_address':office_address, 'address_list':addresslist}])
             #engine     = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
             #dataexport.to_sql('cbre_direcciones_leads',engine,if_exists='append', index=False)
