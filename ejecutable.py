@@ -165,44 +165,37 @@ with col1:
     st.markdown(html, unsafe_allow_html=True)
     
 with col2:
-    with st.form(key="form",clear_on_submit=True):
-        name        = st.text_input("Nombre completo",value="",max_chars=90)
-        firmname    = st.text_input("Nombre de la empresa",value="",max_chars=90)
-        tipoid      = st.selectbox('Tipo de identificacion',options=['NIT'])
-        idnumber    = st.number_input("Número de ID",min_value=0,max_value=9999999999)
-        phonenumber = st.number_input("Teléfono de contacto",min_value=0,max_value=9999999999999)
-        st.markdown('Información para el análisis de tiempo de desplazamiento')
-        city_address   = st.selectbox('Ciudad',options=['Bogotá','Medellín'])
-        office_address = st.text_input('Dirección de oficina',value="",max_chars=90)
+    name        = st.text_input("Nombre completo",value="",max_chars=90)
+    firmname    = st.text_input("Nombre de la empresa",value="",max_chars=90)
+    tipoid      = st.selectbox('Tipo de identificacion',options=['NIT'])
+    idnumber    = st.number_input("Número de ID",min_value=0,max_value=9999999999)
+    phonenumber = st.number_input("Teléfono de contacto",min_value=0,max_value=9999999999999)
+    st.markdown('Información para el análisis de tiempo de desplazamiento')
+    city_address   = st.selectbox('Ciudad',options=['Bogotá','Medellín'])
+    office_address = st.text_input('Dirección de oficina',value="",max_chars=90)
 
-        #st.markdown('Dirección de oficina')
-        #col1,col2,col3,col4   = st.columns(4)
-        #tipovia      = col1.selectbox('Tipo via',options=['CL','KR','TR','DG'])
-        #complemento1 = col2.text_input('Complemento 1')
-        #complemento2 = col3.text_input('Complemento 2')
-        #complemento3 = col4.text_input('Complemento 3')
+    #st.markdown('Dirección de oficina')
+    #col1,col2,col3,col4   = st.columns(4)
+    #tipovia      = col1.selectbox('Tipo via',options=['CL','KR','TR','DG'])
+    #complemento1 = col2.text_input('Complemento 1')
+    #complemento2 = col3.text_input('Complemento 2')
+    #complemento3 = col4.text_input('Complemento 3')
 
-        uploaded_file = st.file_uploader("Subir archivo excel",type=['xlsx','xls','csv'])
-        st.write("[Archivo de ejemplo](https://traveltimeproject-cbre-uploads.s3.us-east-2.amazonaws.com/CBRE_File_Template.xlsx)")
-        addresslist   = json.dumps([])
-        if uploaded_file:
-            df = pd.read_excel(uploaded_file)
-            if df.empty is False:
-                addresslist = json.dumps(df.to_dict(orient='records'))
-            
-        checkbox_val = st.checkbox("Acepto tratamiento de datos personales")
-        st.write("[ver politica de datos](https://cbre.com.co)")
+    uploaded_file = st.file_uploader("Subir archivo excel",type=['xlsx','xls','csv'])
+    st.write("[Archivo de ejemplo](https://traveltimeproject-cbre-uploads.s3.us-east-2.amazonaws.com/CBRE_File_Template.xlsx)")
+    addresslist   = json.dumps([])
+    df            = pd.DataFrame()
+    if uploaded_file:
+        df = pd.read_excel(uploaded_file)
+        if df.empty is False:
+            addresslist = json.dumps(df.to_dict(orient='records'))
+    if df.empty is False:
+        st.write(df.head())
+        
+    checkbox_val = st.checkbox("Acepto tratamiento de datos personales")
+    st.write("[ver politica de datos](https://cbre.com.co)")
 
-        # Every form must have a submit button.
-        submitted = st.form_submit_button("Enviar")
-        if submitted:
-            #dataexport = pd.DataFrame([{'client_name':name, 'client_id_type':tipoid,'client_id_number':idnumber,'client_phone':phonenumber,'client_firm_name':firmname, 'city_reference_address':city_address, 'reference_address':office_address, 'address_list':addresslist}])
-            #engine     = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
-            #dataexport.to_sql('cbre_direcciones_leads',engine,if_exists='append', index=False)
-            st.write('Pronto nos comunicaremos con usted')
-            st.write(df.head())
-        st.markdown('<style>body{background-color: Blue;}</style>',unsafe_allow_html=True)
-
+    
 
     #data_example = pd.DataFrame([{'address':'Carrera 15 # 124 - 30','city':'Bogota'},{'address':'Carrera 11 #82-71','city':'Bogota'},{'address':'Calle 38 SUR # 34 D - 51','city':'Bogota'}])
     #csv = convert_df(data_example)
