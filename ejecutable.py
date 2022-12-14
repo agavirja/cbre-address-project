@@ -13,10 +13,10 @@ from sqlalchemy import create_engine
 def convert_df(df):
    return df.to_csv(index=False,encoding='utf-8')
 
-#user     = st.secrets["buydepauser"]
-#password = st.secrets["buydepapass"]
-#host     = st.secrets["buydepahost"]
-#database = st.secrets["buydepadatabase"]
+user     = st.secrets["user"]
+password = st.secrets["password"]
+host     = st.secrets["host"]
+database = st.secrets["database"]
     
 st.set_page_config(layout="wide")
 col1, col2 = st.columns(2)
