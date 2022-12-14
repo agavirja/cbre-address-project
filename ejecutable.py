@@ -2,6 +2,7 @@ import streamlit as st
 import json
 import pandas as pd
 import mysql.connector as sql
+import openpyxl
 from sqlalchemy import create_engine 
 
 # streamlit run D:\Dropbox\Empresa\CBRE\PROYECTO_DIRECCIONES\LEADS\ejecutable.py
